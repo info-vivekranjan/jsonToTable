@@ -7,8 +7,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { Button } from "@mui/material";
-import PlayCircleIcon from "@mui/icons-material/PlayCircle";
+import ResponsiveAppBar from "../Navbar";
 
 const JsonToTable = () => {
   const [jsonData, setJsonData] = React.useState(null);
@@ -43,46 +42,41 @@ const JsonToTable = () => {
   }));
 
   return (
-    <div>
-      <h2>JSON to table</h2>
-      <textarea
-        rows="35"
-        cols="120"
-        placeholder="Enter JSON data"
-        onChange={handleJosnData}
-      />
-      <Button
-        variant="contained"
-        onClick={handleSubmit}
-        endIcon={<PlayCircleIcon />}
-      >
-        RUN
-      </Button>
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 700 }} aria-label="customized table">
-          <TableHead>
-            <TableRow>
+    <>
+      <ResponsiveAppBar handleSubmit={handleSubmit} />
+      <div style={{ paddingTop: "80px" }}>
+        <textarea
+          rows="35"
+          cols="120"
+          placeholder="Enter JSON data"
+          onChange={handleJosnData}
+        />
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 700 }} aria-label="customized table">
+            <TableHead>
+              <TableRow>
+                {data &&
+                  Object.keys(data[0]).map((r) => {
+                    return <StyledTableCell>{r}</StyledTableCell>;
+                  })}
+              </TableRow>
+            </TableHead>
+            <TableBody>
               {data &&
-                Object.keys(data[0]).map((r) => {
-                  return <StyledTableCell>{r}</StyledTableCell>;
+                data.map((r) => {
+                  return (
+                    <StyledTableRow>
+                      {Object.values(r).map((res) => {
+                        return <StyledTableCell>{res}</StyledTableCell>;
+                      })}
+                    </StyledTableRow>
+                  );
                 })}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {data &&
-              data.map((r) => {
-                return (
-                  <StyledTableRow>
-                    {Object.values(r).map((res) => {
-                      return <StyledTableCell>{res}</StyledTableCell>;
-                    })}
-                  </StyledTableRow>
-                );
-              })}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </div>
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </div>
+    </>
   );
 };
 
