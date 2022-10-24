@@ -9,11 +9,11 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import ResponsiveAppBar from "../Navbar";
 import Grid from "@mui/material/Grid";
+import TextField from "@mui/material/TextField";
 
 const JsonToTable = () => {
   const [jsonData, setJsonData] = React.useState(null);
   const [data, setData] = React.useState(null);
-
   const handleJosnData = (e) => {
     setJsonData(e.target.value);
   };
@@ -48,12 +48,15 @@ const JsonToTable = () => {
       <div style={{ paddingTop: "80px" }}>
         <Grid container spacing={2}>
           <Grid item xs={5}>
-            <textarea
-              rows="50"
-              cols="85"
+            <TextField
+              id="outlined-multiline-static"
+              label="Enter JSON data"
+              multiline
+              rows={33}
               placeholder="Enter JSON data"
               onChange={handleJosnData}
-              style={{ position: "fixed" }}
+              style={{ position: "fixed", width: "40%" }}
+              required
             />
           </Grid>
           <Grid item xs={7}>
