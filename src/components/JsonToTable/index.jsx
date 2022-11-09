@@ -53,7 +53,7 @@ const JsonToTable = () => {
               label="Enter JSON data"
               multiline
               rows={33}
-              placeholder="Enter JSON data"
+              placeholder="Enter JSON data: [{}]"
               onChange={handleJosnData}
               style={{ position: "fixed", width: "40%" }}
               required

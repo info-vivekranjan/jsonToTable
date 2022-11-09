@@ -7,9 +7,31 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import AdbIcon from "@mui/icons-material/Adb";
 import PlayCircleIcon from "@mui/icons-material/PlayCircle";
+import sampleData from './data.json'
+import DataArrayIcon from '@mui/icons-material/DataArray';
 
 function ResponsiveAppBar(props) {
   const { handleSubmit } = props;
+
+  const downloadFile = () => {
+
+    // create file in browser
+    const fileName = "sample-json";
+    const json = JSON.stringify(sampleData, null, 2);
+    const blob = new Blob([json], { type: "application/json" });
+    const href = URL.createObjectURL(blob);
+
+    // create "a" HTLM element with href to file
+    const link = document.createElement("a");
+    link.href = href;
+    link.download = fileName + ".json";
+    document.body.appendChild(link);
+    link.click();
+
+    // clean up "a" element & remove ObjectURL
+    document.body.removeChild(link);
+    URL.revokeObjectURL(href);
+  }
 
   return (
     <AppBar position="fixed">
@@ -60,6 +82,16 @@ function ResponsiveAppBar(props) {
               endIcon={<PlayCircleIcon />}
             >
               RUN
+            </Button>
+          </Box>
+          <Box>
+            <Button
+              variant="contained"
+              onClick={downloadFile}
+              endIcon={<DataArrayIcon />}
+              sx={{ ml: '20px' }}
+            >
+              Sample Data
             </Button>
           </Box>
         </Toolbar>
